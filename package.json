@@ -1,7 +1,7 @@
 {
-  "name": "shared-view",
-  "version": "1.0.0",
-  "description": "shared-view React component",
+  "name": "@cmds/shared-view",
+  "version": "0.1.0",
+  "description": "Used for displaying a simplified shared version of a view.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -11,6 +11,7 @@
     "umd"
   ],
   "scripts": {
+    "deploy": "cd demo/dist && surge --domain shared-view.surge.sh",
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
@@ -19,7 +20,29 @@
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@cmds/attachment-field": "^0.8.0",
+    "@cmds/checkbox-field": "^0.3.0",
+    "@cmds/gallery-view": "^0.5.0",
+    "@cmds/link-to-another-record-field": "^0.5.0",
+    "@cmds/long-text-field": "^0.3.1",
+    "@cmds/multiple-select-field": "^0.6.0",
+    "@cmds/number-field": "^0.7.0",
+    "@cmds/record-detail": "^0.5.0",
+    "@cmds/record-gallery-card": "^0.8.1",
+    "@cmds/single-line-text-field": "^0.6.0",
+    "@cmds/single-select-field": "^0.5.0",
+    "@cmds/sort-settings": "^1.0.0",
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
+    "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.11",
+    "normalize.css": "^8.0.1",
+    "pascal-case": "^2.0.1",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1"
+  },
   "peerDependencies": {
     "react": "16.x"
   },

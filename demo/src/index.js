@@ -1,15 +1,18 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {render} from 'react-dom'
 
-import Example from '../../src'
+import SharedView from './../../src'
 
-class Demo extends Component {
-  render() {
-    return <div>
-      <h1>shared-view Demo</h1>
-      <Example/>
-    </div>
-  }
+class Demo extends React.Component {
+
+    render() {
+
+        return (
+            <div>
+                <SharedView/>
+            </div>
+        )
+    }
 }
 
 render(<Demo/>, document.querySelector('#demo'))
