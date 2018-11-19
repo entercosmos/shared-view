@@ -28,6 +28,30 @@ export default (state, action) => {
         },
         SET_ERROR: (state, action) => {
             return state.set('error', action.payload)
+        },
+        OPEN_RECORD: (state, action) => {
+
+            const {id} = action.payload
+
+            return state.update('openRecords', openRecords => {
+                return openRecords.push(id)
+            })
+        },
+        CLOSE_RECORD: (state, action) => {
+
+            const {id} = action.payload
+
+            return state.update('openRecords', openRecords => {
+                return openRecords.filter(i => i !== id)
+            })
+        },
+        CLOSE_RECORD_AT_INDEX: (state, action) => {
+
+            const {index} = action.payload
+
+            return state.update('openRecords', openRecords => {
+                return openRecords.remove(index)
+            })
         }
     })
 

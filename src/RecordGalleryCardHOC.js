@@ -19,6 +19,6 @@ class RecordGalleryCardHOC extends React.Component {
 }
 
 export default connect((state, props) => ({
-    name: selectors.recordName(state, {id: props.id, primaryFieldId: props.primaryFieldId}),
+    name: selectors.recordName(state, {id: props.id}),
     coverAttachments: selectors.coverAttachments(state, {id: props.id, coverFieldId: props.coverFieldId})
 }))(RecordGalleryCardHOC)

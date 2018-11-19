@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opens the record detail dialog when clicking a record.
 - When the user clicks a linked record in the record detail dialog another dialog with that record get's opened.
 - Router to fetch shared view based on it's id. example: `/shr1`, `/shr2`.
-- Application title.
 - View title.
 - Reference to Cosmos brand.
 - Toolbar with filter and sort button.

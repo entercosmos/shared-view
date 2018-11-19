@@ -7,6 +7,9 @@ import GalleryView from '@cmds/gallery-view'
 import RecordGalleryCardHOC from './RecordGalleryCardHOC'
 import RecordGalleryCard from '@cmds/record-gallery-card'
 import fieldHeightGetter from './utils/fieldHeightGetter'
+import Header from './Header'
+import Toolbar from './Toolbar'
+import Brand from './Brand'
 
 class SharedView extends React.Component {
 
@@ -26,20 +29,37 @@ class SharedView extends React.Component {
         })
 
         return (
-            <div
-                className={css`
+            <div>
+                <Header
+                    title={this.props.name}
+                />
+                <Toolbar>
+
+                </Toolbar>
+                <div
+                    className={css`
                         position: absolute;
-                        top: 60px;
+                        top: 80px;
                         left: 0;
                         right: 0;
                         bottom: 0;
                     `}
-            >
-                <GalleryView
-                    cardCount={recordCount}
-                    cardHeight={cardHeight}
-                    cardRenderer={this.cardRenderer}
-                />
+                >
+                    <GalleryView
+                        cardCount={recordCount}
+                        cardHeight={cardHeight}
+                        cardRenderer={this.cardRenderer}
+                    />
+                </div>
+                <div
+                    className={css`
+                        position: fixed;
+                        bottom: 16px;
+                        right: 16px;
+                    `}
+                >
+                    <Brand />
+                </div>
             </div>
         )
     }
@@ -77,6 +97,7 @@ class SharedView extends React.Component {
 }
 
 export default connect((state, props) => ({
+    name: selectors.viewName(state, props),
     recordCount: selectors.recordCount(state, props),
     primaryFieldId: selectors.primaryFieldId(state, props),
     coverFieldId: selectors.coverFieldId(state, props),

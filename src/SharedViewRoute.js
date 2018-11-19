@@ -5,6 +5,7 @@ import history from './services/history'
 import initData from './services/initData'
 import LoadingState from './LoadingState'
 import Portal from './Portal'
+import RecordLoading from './RecordLoading'
 import RecordDetailDialog from './RecordDetailDialog'
 
 class SharedViewRoute extends React.Component {
@@ -17,32 +18,54 @@ class SharedViewRoute extends React.Component {
 
     render() {
 
-        const {record} = this.props
         const {shareId, recordId} = this.props.match.params
+
+        let {openRecords} = this.props
+
+        if (recordId) {
+            openRecords.unshift(recordId)
+        }
 
         return (
             <LoadingState>
                 <SharedView
                     id={shareId}
                 />
-                {record ? (
+                {openRecords.length ? (
                     <Portal>
-                        <RecordDetailDialog
-                            id={recordId}
-                            shareId={shareId}
-                            onClose={this.handleClosePrimaryRecord}
-                        />
+                        {openRecords.map((id, index) => (
+                            <RecordDetailDialog
+                                key={index}
+                                id={id}
+                                index={index}
+                                shareId={shareId}
+                                onClose={this.handleCloseRecord}
+                            />
+                        ))}
                     </Portal>
                 ) : null}
             </LoadingState>
         )
     }
 
-    handleClosePrimaryRecord = () => {
-        history.push(`${this.props.match.params.shareId}`)
+    handleCloseRecord = ({id, index}) => {
+
+        const {shareId, recordId} = this.props.match.params
+
+        if (recordId === id) {
+            history.push(`/${shareId}`)
+            return
+        }
+
+        this.props.dispatch({
+            type: 'CLOSE_RECORD_AT_INDEX',
+            payload: {
+                index: index - 1
+            }
+        })
     }
 }
 
 export default connect((state, props) => ({
-    record: state.getIn(['cache', 'Record', props.match.params.recordId])
+    openRecords: state.getIn(['openRecords']).toJS()
 }))(SharedViewRoute)

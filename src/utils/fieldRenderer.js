@@ -19,7 +19,7 @@ const connector = connect((state, {id, field}) => {
     const cell = state.getIn(['cache', cacheKey, cellId])
 
     if (!cell) {
-        throw new Error(`Cell ${cellId} not found`)
+        throw new Error(`${cacheKey} ${cellId} not found`)
     }
 
     return {
@@ -54,24 +54,32 @@ const renderers = {
     )),
     linkToAnotherRecord: compose(
         connector,
-        connect((state, {field}) => ({
+        connect((state, {cell, field}) => ({
+            records: cell.records ? cell.records.map(id => {
+                return state.getIn(['cache', 'Record', id]).toJS()
+            }) : null,
             fields: selectors.tableFields(state, {id: field.options.linkTableId}),
-            visibleFieldOrder: selectors.tableVisibleFieldOrder(state, {id: field.options.linkTableId})
+            visibleFieldOrder: selectors.tableVisibleFieldOrder(state, {id: field.options.linkTableId}),
+            openRecords: state.get('openRecords')
         }))
-    )((params) => {
-        console.log('LinkToAnotherRecordField', params)
-        console.log(fieldRenderer)
-        const {props, cell, fields, visibleFieldOrder} = params
-        return (
-            <LinkToAnotherRecordField
-                {...props}
-                records={cell.records}
-                fields={fields}
-                visibleFieldOrder={visibleFieldOrder}
-                fieldRenderer={fieldRenderer}
-            />
-        )
-    }),
+    )(({props, cell, records, fields, visibleFieldOrder, dispatch}) => (
+        <LinkToAnotherRecordField
+            {...props}
+            records={records}
+            fields={fields}
+            visibleFieldOrder={visibleFieldOrder}
+            fieldRenderer={fieldRenderer}
+            onRecordClick={({id}) => {
+
+                dispatch({
+                    type: 'OPEN_RECORD',
+                    payload: {
+                        id
+                    }
+                })
+            }}
+        />
+    )),
     multipleSelect: connector(({props, field, cell}) => (
         <MultipleSelectField
             {...props}
@@ -101,11 +109,7 @@ const renderers = {
     ))
 }
 
-const fieldRenderer = (params) => {
-
-    const {id, field, props} = params
-
-    console.log(params)
+const fieldRenderer = ({id, field, props}) => {
 
     let Field = renderers[field.typeId]
 

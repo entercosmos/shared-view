@@ -71,7 +71,10 @@ export default {
         const view = state.getIn(['cache', 'View', sharedView.get('view')])
         return view.get('records')
     },
-    recordName: (state, {id, primaryFieldId}) => {
+    recordName: (state, {id}) => {
+        const record = state.getIn(['cache', 'Record', id])
+        const table = state.getIn(['cache', 'Table', record.get('tableId')])
+        const primaryFieldId = table.get('primaryFieldId')
         const cellId = [id, primaryFieldId].join('/')
         return state.getIn(['cache', 'SingleLineTextCell', cellId, 'text'])
     },
@@ -90,5 +93,23 @@ export default {
     tableVisibleFieldOrder: (state, {id}) => {
         const table = state.getIn(['cache', 'Table', id])
         return table.get('fields').toJS()
+    },
+    recordFields: (state, {id}) => {
+        const record = state.getIn(['cache', 'Record', id])
+        const table = state.getIn(['cache', 'Table', record.get('tableId')])
+        const fields = table.get('fields').map(id => {
+            return state.getIn(['cache', 'Field', id])
+        })
+        return fields.toJS()
+    },
+    recordVisibleFieldOrder: (state, {id}) => {
+        const record = state.getIn(['cache', 'Record', id])
+        const table = state.getIn(['cache', 'Table', record.get('tableId')])
+        return table.get('fields').toJS()
+    },
+    viewName: (state, {id}) => {
+        const sharedView = state.getIn(['cache', 'SharedView', id])
+        const view = state.getIn(['cache', 'View', sharedView.get('view')])
+        return view.get('name')
     }
 }

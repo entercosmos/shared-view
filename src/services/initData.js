@@ -1,9 +1,5 @@
-import axios from 'axios'
+import api from './api'
 import store from './store'
-
-const api = axios.create({
-    baseURL: 'http://0.0.0.0:2995'
-})
 
 export default async ({id}) => {
 
@@ -37,6 +33,7 @@ export default async ({id}) => {
                       view {
                         __typename
                         id
+                        name
                         typeId
                         coverFieldId
                         coverFitTypeId
@@ -56,6 +53,7 @@ export default async ({id}) => {
                         records {
                           __typename
                           id
+                          tableId
                           cells {
                                         id
                                         __typename
@@ -126,8 +124,10 @@ export default async ({id}) => {
                             }
                             ... on LinkToAnotherRecordCell {
                               records {
+                                __typename
                                 id
                                 name
+                                tableId
                                 cells {
                                   __typename
                                   id
@@ -198,8 +198,10 @@ export default async ({id}) => {
                                   }
                                   ... on LinkToAnotherRecordCell {
                                     records {
+                                      __typename
                                       id
                                       name
+                                      tableId
                                     }
                                   }
                                 }
