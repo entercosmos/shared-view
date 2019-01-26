@@ -1,5 +1,7 @@
 # ![SharedView](https://user-images.githubusercontent.com/44801418/48136937-7d1f9a00-e2d3-11e8-85ea-1f0929ef1bfc.png) SharedView
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/entercosmos/shared-view.svg)](https://greenkeeper.io/)
+
 [![npm package][npm-badge]][npm]
 
 Used for displaying records as individual cards in a gallery.	
