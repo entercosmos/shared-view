@@ -23,7 +23,7 @@
   "dependencies": {
     "@cmds/attachment-field": "^0.8.0",
     "@cmds/checkbox-field": "^0.3.0",
-    "@cmds/gallery-view": "^0.5.0",
+    "@cmds/gallery-view": "^0.6.0",
     "@cmds/link-to-another-record-field": "^0.5.0",
     "@cmds/long-text-field": "^0.3.1",
     "@cmds/multiple-select-field": "^0.6.0",
@@ -39,7 +39,7 @@
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",
     "pascal-case": "^2.0.1",
-    "react-redux": "^5.1.1",
+    "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1"
   },
